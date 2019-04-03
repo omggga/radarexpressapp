@@ -26,7 +26,7 @@ app.get('/', (req, res) =>  {
 //Get form data to create html form
 app.get('/get/:form', (req, res) =>  {
 
-	const formtype = request.params.form
+	const formtype = req.params.form
 	if (!formtype) {
 		res.sendStatus(500)
 	} else {
@@ -49,7 +49,7 @@ app.get('/get/:form', (req, res) =>  {
 //Get user data to fill html form
 app.get('/user/:id', (req, res) =>  {
 
-	const id = request.params.id
+	const id = req.params.id
 	if (!id) {
 		res.sendStatus(500)
 	} else {
@@ -107,7 +107,7 @@ app.post('/save', (req, res) =>  {
 //Clear form
 app.post('/clear/:id', (req, res) =>  {
 
-	const id = request.params.id
+	const id = req.params.id
 	if (!id) {
 		res.sendStatus(500)
 	} else {
