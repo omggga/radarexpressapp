@@ -53,8 +53,7 @@ app.get('/user/:id', (req, res) =>  {
 	if (!id) {
 		res.sendStatus(500)
 	} else {
-		db.any('SELECT * FROM account where userkey = $1', [id]).then(function(data) {
-
+		db.any('SELECT * FROM account where user_id = $1', [id]).then(function(data) {
 			if (data && data.length > 0) {
 				res.send(data)
 			} else {
