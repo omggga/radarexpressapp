@@ -1,24 +1,36 @@
 {
-  "name": "radar",
+  "name": "radarpricetool",
   "version": "1.0.0",
-  "description": "\"# radarform\"",
-  "main": "./src/index.js",
+  "private": false,
+  "engines": {
+    "node": ">=8.6.0",
+    "npm": ">=5.6.0"
+  },
   "scripts": {
+    "start": "pm2 reload ../ecosystem.config.js --update-env",
+    "stop": "pm2 stop radarprice",
     "lint": "eslint --ext .js,.vue src",
-    "build": "webpack --config build/webpack.config.dev.js",
-    "dev": "webpack-dev-server --config build/webpack.config.dev.js"
+    "build": "webpack --config webpack.config.js",
+    "dev": "webpack-dev-server --config webpack.config.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/omggga/radarform.git"
+    "url": "git+https://github.com/omggga/radarexpressapp.git"
   },
-  "author": "",
+  "author": "omggga",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/omggga/radarform/issues"
+    "url": "https://github.com/omggga/radarexpressapp/issues"
   },
-  "homepage": "https://github.com/omggga/radarform#readme",
+  "homepage": "https://github.com/omggga/radarexpressapp#readme",
   "dependencies": {
+    "@babel/runtime": "^7.4.3",
+    "body-parser": "^1.18.3",
+    "connect-history-api-fallback": "^1.6.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "moment": "^2.24.0",
+    "pg-promise": "^8.6.4",
     "vue": "^2.6.9",
     "vue-router": "^3.0.2",
     "vuetify": "^1.5.7",
@@ -26,6 +38,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
+    "@babel/plugin-transform-runtime": "^7.4.3",
     "@babel/preset-env": "^7.3.4",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",

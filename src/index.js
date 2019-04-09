@@ -2,10 +2,10 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import VueRouter from 'vue-router'
 
-import App from './App.vue'
-import routes from './routes'
+import App from './vue/App.vue'
+import routes from './vue/routes'
 
-import '../assets/app.styl'
+import './vue/assets/app.styl'
 
 Vue.config.productionTip = false
 
@@ -19,7 +19,9 @@ Vue.use(Vuetify, {
 	}
 })
 
-const router = new VueRouter({ routes })
+const router = new VueRouter({
+	routes
+})
 
 new Vue({
 	router,

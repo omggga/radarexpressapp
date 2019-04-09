@@ -1,0 +1,14 @@
+/.idea
+/.sublime
+/.vscode
+
+node_modules
+**/node_modules/*
+
+**/*.log
+*.log
+
+public
+public/**/*
+
+/.env
