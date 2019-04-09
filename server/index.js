@@ -10,13 +10,15 @@ const pgp = require('pg-promise')()
 const connection = 'postgres://qvduspzt:nqQSJHteBSE1_APAMeQHFP6h7FhuGipl@balarama.db.elephantsql.com:5432/qvduspzt'
 //https://api.elephantsql.com/console/2902d413-c14f-452e-be8f-1a29d4ffaf12/details?
 
+const connection2 = 'postgres://front:priX1Fuewl5iT7Op1E@193.176.79.194:5432/radar3?ssl=true'
+
 app.use(bodyParser.urlencoded({
     extended: true
 }))
 app.use(bodyParser.json())
 app.use(cors())
 
-const db = pgp(connection)
+const db = pgp(connection2)
 
 app.get('/', (req, res) =>  {
 	res.sendStatus(200)
@@ -30,15 +32,20 @@ app.get('/get/:form', (req, res) =>  {
 	if (!formtype) {
 		res.sendStatus(500)
 	} else {
-		db.any('SELECT * FROM $1', [formtype]).then(function(data) {
-
+		db.any('SELECT * FROM $1:name', formtype).then(function(data) {
+			debugger
 			if (data && data.length > 0) {
-				res.send(data)
+				var resultArr = []
+				for (el of data) {
+					resultArr.push(el.country)
+				}
+				res.send(resultArr)
 			} else {
 				res.sendStatus(500)
 			}
 		})
 		.catch(function(error) {
+			debugger
 			res.sendStatus(500)
 		})
 	}
