@@ -11,10 +11,6 @@ const path = require('path')
 const SRC = path.resolve(__dirname, 'src')
 const DIST = path.resolve(__dirname, 'public')
 
-function resolve(dir) {
-	return path.join(__dirname, '..', dir)
-}
-
 module.exports = {
 	entry: {
 		app: './src/index.js'
@@ -90,9 +86,9 @@ module.exports = {
 	plugins: [
 		new VueLoaderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
-		/*new CopyWebpackPlugin([
-			{ from: resolve('static'),	to: resolve('dist/static') }
-		]),*/
+		new CopyWebpackPlugin([
+			{ from: path.resolve(__dirname, 'src/static'),	to: path.resolve(__dirname, 'public/static'), force: true }
+		]),
 		new MiniCssExtractPlugin({
 			filename: 'main.css'
 		}),

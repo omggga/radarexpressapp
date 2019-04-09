@@ -1,10 +1,10 @@
-#Radar Price Tool
+# Radar Price Tool
 
 # start
 npm run start
 
-#stop
+# stop
 npm run stop
 
-#build new html
+# build new html
 npm run build
