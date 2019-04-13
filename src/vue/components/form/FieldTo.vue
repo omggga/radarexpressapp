@@ -32,11 +32,12 @@
 				:multiple="true",
 				:options="countries",
 				:flatten-search-results="false",
-				searchable="searchable",
 				:max-height="185",
 				search-nested,
 				limit="2",
-				noResultsText="Ничего не найдено")
+				noResultsText="Ничего не найдено",
+				required,
+				limitText="limitTextCount")
 </template>
 
 <script>
@@ -86,6 +87,9 @@ export default {
 					this.$refs.selectedCountries.blur()
 				}
 			})
+		},
+		limitTextCount (count) {
+			return `и еще ${count}`
 		}
 	}
 }
