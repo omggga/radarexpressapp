@@ -34,7 +34,7 @@ export default {
 	},
 
 	data: () => ({
-		cities: [],
+		cities: ['Москва', 'Санкт-Петербург', 'За(М)КАДье'],
 		selectedCities: []
 	}),
 
@@ -49,10 +49,12 @@ export default {
 	},
 
 	async created () {
+		/*
 		const url = 'http://localhost:3000/get/countries'
 		const selectData = await fetch(url)
 		const result = await selectData.json()
 		this.cities = result
+		*/
 		setTimeout(() => {
 			this.selectedCities = this.userdata
 		}, 300)

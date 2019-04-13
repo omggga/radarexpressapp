@@ -34,7 +34,7 @@ export default {
 	},
 
 	data: () => ({
-		visa: [],
+		visa: ['Без визы', 'Не важно', 'Есть шенген'],
 		selectedVisas: []
 	}),
 
@@ -49,10 +49,6 @@ export default {
 	},
 
 	async created () {
-		const url = 'http://localhost:3000/get/visa'
-		const selectData = await fetch(url)
-		const result = await selectData.json()
-		this.visa = result
 		setTimeout(() => {
 			this.selectedVisas = this.userdata
 		}, 300)

@@ -9,7 +9,8 @@ const config = require('./config')
 const app = express()
 
 const pgp = require('pg-promise')()
-const db = pgp(process.env.PG_CONNECT || config.connectionString)
+const PG_CONNECT = 'postgres://front:priX1Fuewl5iT7Op1E@193.176.79.194:5432/radar3?ssl=true'
+const db = pgp(PG_CONNECT || config.connectionString)
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
@@ -31,11 +32,11 @@ app.get('/user/:id', (req, res) => {
 	if (!id) {
 		res.sendStatus(500)
 	} else {
-		db.any('SELECT * FROM account where user_id = $1', [id]).then(function(data) {
+		db.any('SELECT "from", "to", dates, visa, pricelimit FROM public.users where userkey = $1', [id]).then(function(data) {
 			if (data && data.length > 0) {
 				res.send(data)
 			} else {
-				res.send({ error: 'No data belongs to this user' })
+				res.send({ error: 'No data belongs to this user. Its a new radar bro.' })
 			}
 		})
 		.catch(function(error) {
@@ -44,26 +45,42 @@ app.get('/user/:id', (req, res) => {
 	}
 })
 
-app.get('/get/:form', (req, res) => {
-	const formtype = req.params.form
-	if (!formtype) {
-		res.sendStatus(500)
-	} else {
-		db.any('SELECT * FROM $1:name', formtype).then(function(data) {
-			if (data && data.length > 0) {
-				var resultArr = []
-				for (el of data) {
-					resultArr.push(el.country)
+app.get('/get/countries', (req, res) => {
+	db.any('SELECT ROW_NUMBER() OVER () AS id, country, region FROM public.countries').then(function(data) {
+		if (data && data.length > 0) {
+			const result = []
+			let branch = "t"
+			let index = 1
+			data.forEach((item) => {
+				const existing = result.filter(function(v, i) {
+					return v.label == item.region
+				})
+				if (existing.length) {
+					const existingIndex = result.indexOf(existing[0])
+					result[existingIndex].children = result[existingIndex].children.concat({ id: +item.id, label: item.country})
+				} else {
+					const el = {
+						id: branch+index,
+						label: item.region,
+						children: [
+							{ id: +item.id, label: item.country}
+						]
+					}
+					result.push(el)
+					index++
 				}
-				res.send(resultArr)
-			} else {
-				res.sendStatus(500)
-			}
-		})
-		.catch(function(error) {
+			})
+			result.forEach((item) => {
+				item.children.sort((a,b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0))
+			})
+			res.send(JSON.stringify(result))
+		} else {
 			res.sendStatus(500)
-		})
-	}
+		}
+	})
+	.catch(function(error) {
+		res.sendStatus(500)
+	})
 })
 
 app.post('/save', (req, res) => {
@@ -85,7 +102,6 @@ app.post('/save', (req, res) => {
 				})
 			} else {
 				db.any('INSERT INTO account (place_from, place_to, dates, visa, pricelimit, date_added) VALUES($2, $3, $4, $5, $6, $7) where userkey == $1', [key, place_from, place_to, dates, visa, pricelimit, date_added]).then(function(res) {
-					console.log('Inserted', res)
 					res.sendStatus(200)
 				})
 			}
