@@ -11,7 +11,8 @@
 				color="#01CAD1",
 				dense,
 				:menu-props="{maxHeight: 185}",
-				:rules="[ selectedCountries.length > 0 || 'Как это никуда?!']")
+				:rules="[ selectedCountries.length > 0 || 'Как это никуда?!']",
+				validate-on-blur)
 				template(v-slot:prepend-item)
 					v-list-tile(ripple, @click="toggleCountry")
 						v-list-tile-action
@@ -53,7 +54,9 @@ export default {
 		const selectData = await fetch(url)
 		const result = await selectData.json()
 		this.countries = result
-		this.selectedCountries = this.userdata
+		setTimeout(() => {
+			this.selectedCountries = this.userdata
+		}, 300)
 	},
 
 	methods: {

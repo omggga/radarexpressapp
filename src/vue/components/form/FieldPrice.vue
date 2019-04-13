@@ -43,8 +43,10 @@ export default {
 	},
 
 	async created () {
-		this.slider = this.userdata
-		this.sliderNum = this.userdata
+		setTimeout(() => {
+			this.slider = this.userdata
+			this.sliderNum = this.userdata
+		}, 300)
 	}
 }
 </script>

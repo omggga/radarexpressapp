@@ -10,7 +10,8 @@
 				color="#01CAD1",
 				dense,
 				:menu-props="{maxHeight: 185}",
-				:rules="[ selectedCities.length > 0 || 'Ну так откуда?']")
+				:rules="[ selectedCities.length > 0 || 'Ну так откуда?']",
+				validate-on-blur)
 				template(v-slot:prepend-item)
 					v-list-tile(dense, @click="toggleCity")
 						v-list-tile-action
@@ -52,7 +53,9 @@ export default {
 		const selectData = await fetch(url)
 		const result = await selectData.json()
 		this.cities = result
-		this.selectedCities = this.userdata
+		setTimeout(() => {
+			this.selectedCities = this.userdata
+		}, 300)
 	},
 
 	methods: {

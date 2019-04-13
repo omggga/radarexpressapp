@@ -1,5 +1,5 @@
 <template lang="pug">
-	v-form(id="radarform", ref="form", v-model="valid", action="", method="post")
+	v-form(id="radarform", ref="form", v-model="valid", action="", method="post", lazy-validation=true)
 		v-layout.pl-4.pr-4(row, wrap, justify-center)
 			field-from(:userdata="userFrom")
 			field-to(:userdata="userTo")

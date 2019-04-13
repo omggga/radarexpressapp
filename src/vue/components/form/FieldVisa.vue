@@ -10,7 +10,8 @@
 				attach,
 				color="#01CAD1",
 				dense,
-				:menu-props="{maxHeight: 185}")
+				:menu-props="{maxHeight: 185}",
+				validate-on-blur)
 				template(v-slot:prepend-item)
 					v-list-tile(ripple, @click="toggleVisa")
 						v-list-tile-action
@@ -52,7 +53,9 @@ export default {
 		const selectData = await fetch(url)
 		const result = await selectData.json()
 		this.visa = result
-		this.selectedVisas = this.userdata
+		setTimeout(() => {
+			this.selectedVisas = this.userdata
+		}, 300)
 	},
 
 	methods: {

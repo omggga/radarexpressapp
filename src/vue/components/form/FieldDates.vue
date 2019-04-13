@@ -10,7 +10,8 @@
 					hide-no-data,
 					readonly,
 					hide-selected,
-					:rules="[ months.length > 0 || 'А когда?']")
+					:rules="[ months.length > 0 || 'А когда?']",
+					validate-on-blur)
 				v-date-picker(ref="months",
 					label="А когда?",
 					v-model="months",
@@ -54,7 +55,9 @@ export default {
 				this.userdata.splice(i, 1)
 			}
 		}
-		this.months = this.userdata
+		setTimeout(() => {
+			this.months = this.userdata
+		}, 300)
 	},
 
 	methods: {
