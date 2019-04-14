@@ -73,7 +73,35 @@ app.get('/get/countries', (req, res) => {
 			result.forEach((item) => {
 				item.children.sort((a,b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0))
 			})
-			res.send(JSON.stringify(result))
+			const resultArray = []
+			result.forEach((item) => {
+				resultArray.push({ "header": item.label })
+				if(item.children.length > 0){
+					for(el of item.children) {
+						resultArray.push({ "name": el.label, "group": item.label })
+					}
+				}
+			})
+
+
+			res.send(JSON.stringify(resultArray))
+		} else {
+			res.sendStatus(500)
+		}
+	})
+	.catch(function(error) {
+		res.sendStatus(500)
+	})
+})
+
+app.get('/get/countries_from', (req, res) => {
+	db.any('SELECT name FROM public.from').then(function(data) {
+		if (data && data.length > 0) {
+			var resultArr = []
+			for (el of data) {
+				resultArr.push(el.name)
+			}
+			res.send(JSON.stringify(resultArr))
 		} else {
 			res.sendStatus(500)
 		}

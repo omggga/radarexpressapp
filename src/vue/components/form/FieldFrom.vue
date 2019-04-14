@@ -2,6 +2,7 @@
 	v-flex(xs12, sm6)
 		v-layout.select_from(justify-center)
 			v-select(ref="selectedCities",
+				name="countries_to",
 				v-model="selectedCities",
 				:items="cities",
 				label="Откуда отсюда?",
@@ -9,7 +10,7 @@
 				attach,
 				color="#01CAD1",
 				dense,
-				:menu-props="{maxHeight: 185}",
+				:menu-props="{maxHeight: 255}",
 				:rules="[ selectedCities.length > 0 || 'Ну так откуда?']",
 				validate-on-blur)
 				template(v-slot:prepend-item)
@@ -34,7 +35,7 @@ export default {
 	},
 
 	data: () => ({
-		cities: ['Москва', 'Санкт-Петербург', 'За(М)КАДье'],
+		cities: [],
 		selectedCities: []
 	}),
 
@@ -49,14 +50,14 @@ export default {
 	},
 
 	async created () {
-		/*
-		const url = 'http://localhost:3000/get/countries'
+		const url = 'http://localhost:3000/get/countries_from'
 		const selectData = await fetch(url)
 		const result = await selectData.json()
 		this.cities = result
-		*/
 		setTimeout(() => {
-			this.selectedCities = this.userdata
+			if (this.userdata && this.userdata.length > 0) {
+				this.selectedCities = this.userdata
+			}
 		}, 300)
 	},
 

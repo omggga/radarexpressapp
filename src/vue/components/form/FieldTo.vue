@@ -1,50 +1,34 @@
 <template lang="pug">
 	v-flex(xs12, sm6, :class="{'pl-4': $vuetify.breakpoint.smAndUp, 'pl-0': $vuetify.breakpoint.xsOnly}")
 		v-layout.select_from(justify-center)
-			//- v-select(ref="selectedCountries",
-			//- 	name="countries",
-			//- 	v-model="selectedCountries",
-			//- 	:items="countries",
-			//- 	label="А куда?",
-			//- 	multiple,
-			//- 	attach,
-			//- 	color="#01CAD1",
-			//- 	dense,
-			//- 	:menu-props="{maxHeight: 185}",
-			//- 	:rules="[ selectedCountries.length > 0 || 'Как это никуда?!']",
-			//- 	validate-on-blur)
-			//- 	template(v-slot:prepend-item)
-			//- 		v-list-tile(ripple, @click="toggleCountry")
-			//- 			v-list-tile-action
-			//- 				v-icon(:color="selectedCountries.length > 0 ? '#01CAD1' : ''") {{ iconCountry }}
-			//- 			v-list-tile-content
-			//- 				v-list-tile-title Куда угодно
-			//- 	template(v-slot:selection="{ item, index }")
-			//- 		span(v-if="index === 0") {{ item }}
-			//- 		span(v-if="index === 1") &nbsp;, {{ item }}
-			//- 		span(v-if="index === 2") &nbsp;(+{{ selectedCountries.length - 2 }})
-			treeselect(ref="selectedCountries",
-				placeholder="А куда?",
+			v-select(ref="selectedCountries",
+				name="countries",
+				v-model="selectedCountries",
+				v-bind:items="countries",
+				item-text="name",
+				item-value="name",
+				label="А куда?",
+				multiple,
+				attach,
 				color="#01CAD1",
 				dense,
+				:menu-props="{maxHeight: 255}",
 				:rules="[ selectedCountries.length > 0 || 'Как это никуда?!']",
-				validate-on-blur,
-				:multiple="true",
-				:options="countries",
-				:flatten-search-results="false",
-				:max-height="185",
-				search-nested,
-				limit="2",
-				noResultsText="Ничего не найдено",
-				required,
-				limitText="limitTextCount")
+				validate-on-blur, autocomplete)
+				template(v-slot:prepend-item)
+					v-list-tile(ripple, @click="toggleCountry")
+						v-list-tile-action
+							v-icon(:color="selectedCountries.length > 0 ? '#01CAD1' : ''") {{ iconCountry }}
+						v-list-tile-content
+							v-list-tile-title Куда угодно
+				template(v-slot:selection="{ item, index }")
+					span(v-if="index === 0", v-text="item.name")
+					span(v-if="index === 1", v-text="item.name")
+					span(v-if="index === 2") &nbsp;(+{{ selectedCountries.length - 2 }})
 </template>
 
 <script>
-import Treeselect from '@riophae/vue-treeselect'
-import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 export default {
-	components: { Treeselect },
 	props: {
 		userdata: {
 			validator: value => typeof value === 'object',
