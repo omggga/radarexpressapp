@@ -66,6 +66,7 @@ export default {
 			this.$nextTick(() => {
 				if (this.allCities) {
 					this.selectedCities = []
+					this.$refs.selectedCities.blur()
 				} else {
 					this.selectedCities = this.cities.slice()
 					this.$refs.selectedCities.blur()

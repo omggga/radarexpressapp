@@ -16,14 +16,14 @@
 				:rules="[ selectedCountries.length > 0 || 'Как это никуда?!']",
 				validate-on-blur, autocomplete)
 				template(v-slot:prepend-item)
-					v-list-tile(ripple, @click="toggleCountry")
+					v-list-tile(dense, @click="toggleCountry")
 						v-list-tile-action
 							v-icon(:color="selectedCountries.length > 0 ? '#01CAD1' : ''") {{ iconCountry }}
 						v-list-tile-content
 							v-list-tile-title Куда угодно
-				template(v-slot:selection="{ item, index }")
-					span(v-if="index === 0", v-text="item.name")
-					span(v-if="index === 1", v-text="item.name")
+				template(v-slot:selection="{ item, index }", v-ripple="{ color: '#01CAD1' }")
+					span(v-if="index === 0") {{ item.name }}
+					span(v-if="index === 1") ,&nbsp;{{ item.name }}
 					span(v-if="index === 2") &nbsp;(+{{ selectedCountries.length - 2 }})
 </template>
 
@@ -43,7 +43,7 @@ export default {
 
 	computed: {
 		allCountries () {
-			return this.selectedCountries.length === this.countries.length
+			return this.selectedCountries.length === (this.countries.length - 7)
 		},
 		iconCountry () {
 			if (this.allCountries) return 'done'
@@ -66,14 +66,14 @@ export default {
 			this.$nextTick(() => {
 				if (this.allCountries) {
 					this.selectedCountries = []
+					this.$refs.selectedCountries.blur()
 				} else {
-					this.selectedCountries = this.countries.slice()
+					this.selectedCountries = this.countries.filter((country) => {
+						return country.hasOwnProperty('name')
+					})
 					this.$refs.selectedCountries.blur()
 				}
 			})
-		},
-		limitTextCount (count) {
-			return `и еще ${count}`
 		}
 	}
 }

@@ -1,6 +1,10 @@
 <template lang="pug">
-	v-app
-		v-container(fluid, text-xs-center, grid-list-md )
-			v-card(min-width="375", max-width="650")
-				h2 Произошла ошибка
+	v-layout.pt-1.pb-1(wrap, justify-start)
+		v-flex(xs1)
+			img(src="static/images/logo.jpg", alt="Travel Radar", width="70", height="70")
+		v-flex.pt-4(xs11)
+			span.headline.pl-2 Упс!
+		v-flex.pt-4.pb-4(xs12)
+			p Произошла непредвиденная ошибка!
+			p Попробуй пожалуйста чуть позже...
 </template>

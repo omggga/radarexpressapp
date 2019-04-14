@@ -115,21 +115,24 @@ app.post('/save', (req, res) => {
 	if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
 		res.sendStatus(500)
 	} else {
-		const key = req.body.key
-		const from = req.body.from
-		const to = req.body.to
-		const visa = req.body.visa
-		const dates = req.body.dates
-		const price = req.body.price
+		const key = req.body.userkey
+		const from = JSON.stringify(req.body.from)
+		const to = JSON.stringify(req.body.to)
+		const dates = JSON.stringify(req.body.dates)
+		const visa = JSON.stringify(req.body.visa)
+		const pricelimit = req.body.price
 
-		db.any('SELECT * FROM account where userkey == $1', [key]).then(function(data) {
+		if (!key) {
+			res.sendStatus(500)
+		}
+
+		db.any('SELECT * FROM public.users where userkey = $1', [key]).then(function(data) {
 			if (data && data.length > 0 ) {
-				const date_added = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
-				db.any('UPDATE account SET place_from = $2, place_to = $3, dates = $4, visa = $5, pricelimit = $6, date_added = $7 where userkey == $1', [key, place_from, place_to, dates, visa, pricelimit, date_added]).then(function(res) {
+				db.any('UPDATE public.users SET "from" = $2, "to" = $3, dates = $4, visa = $5, pricelimit = $6 where userkey = $1', [key, from, to, dates, visa, pricelimit]).then(function(response) {
 					res.sendStatus(200)
 				})
 			} else {
-				db.any('INSERT INTO account (place_from, place_to, dates, visa, pricelimit, date_added) VALUES($2, $3, $4, $5, $6, $7) where userkey == $1', [key, place_from, place_to, dates, visa, pricelimit, date_added]).then(function(res) {
+				db.any('INSERT INTO public.users (userkey, "from", "to", dates, visa, pricelimit) VALUES ($1, $2, $3, $4, $5, $6)', [key, from, to, dates, visa, pricelimit]).then(function(response) {
 					res.sendStatus(200)
 				})
 			}
