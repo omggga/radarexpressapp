@@ -1,7 +1,7 @@
 <template lang="pug">
 	v-flex(xs12, sm6, :class="{'pl-4': $vuetify.breakpoint.smAndUp, 'pl-0': $vuetify.breakpoint.xsOnly}")
 		v-layout.select_from(justify-center)
-			v-select(ref="selectedCountries",
+			v-autocomplete(ref="selectedCountries",
 				name="countries",
 				v-model="selectedCountries",
 				v-bind:items="countries",
@@ -9,12 +9,12 @@
 				item-value="name",
 				label="А куда?",
 				multiple,
-				attach,
 				color="#01CAD1",
 				dense,
 				:menu-props="{maxHeight: 255}",
 				:rules="[ selectedCountries.length > 0 || 'Как это никуда?!']",
-				validate-on-blur, autocomplete)
+				validate-on-blur,
+				no-data-text="Ничего не найдено")
 				template(v-slot:prepend-item)
 					v-list-tile(dense, @click="toggleCountry")
 						v-list-tile-action

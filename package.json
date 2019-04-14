@@ -33,7 +33,7 @@
     "pg-promise": "^8.6.4",
     "vue": "^2.6.9",
     "vue-router": "^3.0.2",
-    "vuetify": "^1.5.7",
+    "vuetify": "^1.4.4",
     "vuetify-loader": "^1.2.1"
   },
   "devDependencies": {
