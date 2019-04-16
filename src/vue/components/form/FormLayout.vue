@@ -37,7 +37,7 @@ export default {
 	}),
 
 	async created () {
-		const url = 'http://localhost:3000/user/' + this.$route.params.id
+		const url = '/user/' + this.$route.params.id
 		const selectData = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } })
 		const result = await selectData.json()
 		if (result && result.length > 0) {
@@ -66,7 +66,7 @@ export default {
 					return
 				}
 
-				fetch('http://localhost:3000/save', {
+				fetch('/save', {
 					method: 'POST',
 					headers: {
 						'Accept': 'application/json',

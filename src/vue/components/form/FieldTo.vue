@@ -14,14 +14,15 @@
 				:menu-props="{maxHeight: 255}",
 				:rules="[ selectedCountries.length > 0 || 'Как это никуда?!']",
 				validate-on-blur,
-				no-data-text="Ничего не найдено")
+				no-data-text="Ничего не найдено",
+				:filter="filterData")
 				template(v-slot:prepend-item)
 					v-list-tile(dense, @click="toggleCountry")
 						v-list-tile-action
 							v-icon(:color="selectedCountries.length > 0 ? '#01CAD1' : ''") {{ iconCountry }}
 						v-list-tile-content
 							v-list-tile-title Куда угодно
-				template(v-slot:selection="{ item, index }", v-ripple="{ color: '#01CAD1' }")
+				template(slot="selection" slot-scope="{ item, index }", v-ripple="{ color: '#01CAD1' }")
 					span(v-if="index === 0") {{ item.name }}
 					span(v-if="index === 1") ,&nbsp;{{ item.name }}
 					span(v-if="index === 2") &nbsp;(+{{ selectedCountries.length - 2 }})
@@ -52,7 +53,7 @@ export default {
 	},
 
 	async created () {
-		const url = 'http://localhost:3000/get/countries'
+		const url = '/get/countries'
 		const selectData = await fetch(url)
 		const result = await selectData.json()
 		this.countries = result
@@ -74,6 +75,12 @@ export default {
 					this.$refs.selectedCountries.blur()
 				}
 			})
+		},
+
+		filterData (item, queryText, itemText) {
+			queryText = queryText.toString().trim()
+			itemText = itemText.toString()
+			return itemText.toLocaleLowerCase().indexOf(queryText.toLocaleLowerCase()) > -1
 		}
 	}
 }

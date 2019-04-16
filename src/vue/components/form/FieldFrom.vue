@@ -50,7 +50,7 @@ export default {
 	},
 
 	async created () {
-		const url = 'http://localhost:3000/get/countries_from'
+		const url = '/get/countries_from'
 		const selectData = await fetch(url)
 		const result = await selectData.json()
 		this.cities = result
