@@ -44,7 +44,7 @@ export default {
 			return this.formatDate(new Date())
 		},
 		maxDate () {
-			return this.formatDate(new Date(new Date().setFullYear(new Date().getFullYear() + 1)))
+			return this.formatDate(new Date(new Date().setFullYear(new Date().getFullYear() + 6)))
 		}
 	},
 
