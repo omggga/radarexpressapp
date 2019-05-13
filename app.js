@@ -9,8 +9,7 @@ const config = require('./config')
 const app = express()
 
 const pgp = require('pg-promise')()
-const PG_CONNECT = 'postgres://front:priX1Fuewl5iT7Op1E@193.176.79.194:5432/radar3?ssl=true'
-const db = pgp(PG_CONNECT || config.connectionString)
+const db = pgp(process.env.PG_CONNECT)
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
