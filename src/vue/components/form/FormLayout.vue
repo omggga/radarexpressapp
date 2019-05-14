@@ -32,7 +32,7 @@ export default {
 		userFrom: [],
 		userTo: [],
 		userMonths: [],
-		userVisa: [],
+		userVisa: ['Без визы', 'Есть шенген', 'Есть виза США'],
 		userprice: 99000
 	}),
 

@@ -15,7 +15,8 @@
 				:rules="[ selectedCountries.length > 0 || 'Как это никуда?!']",
 				validate-on-blur,
 				no-data-text="Ничего не найдено",
-				:filter="filterData")
+				:filter="filterData",
+				placeholder="Пиши тут или выбирай")
 				template(v-slot:prepend-item)
 					v-list-tile(dense, @click="toggleCountry")
 						v-list-tile-action

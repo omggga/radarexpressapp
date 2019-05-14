@@ -29,13 +29,13 @@ export default {
 	props: {
 		userdata: {
 			validator: value => typeof value === 'object',
-			default: () => []
+			default: () => ['Без визы', 'Есть шенген', 'Есть виза США']
 		}
 	},
 
 	data: () => ({
 		visa: ['Без визы', 'Есть шенген', 'Есть виза США'],
-		selectedVisas: []
+		selectedVisas: ['Без визы', 'Есть шенген', 'Есть виза США']
 	}),
 
 	computed: {
@@ -59,6 +59,7 @@ export default {
 			this.$nextTick(() => {
 				if (this.allVisas) {
 					this.selectedVisas = []
+					this.$refs.selectedVisas.blur()
 				} else {
 					this.selectedVisas = this.visa.slice()
 					this.$refs.selectedVisas.blur()
