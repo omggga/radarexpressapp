@@ -10,14 +10,14 @@
 					height="5",
 					label="₽₽₽",
 					min="0",
-					max="99000",
+					max="50000",
 					step="1000",
 					type="number",
 					:rules="[ slider > 0 || 'Ну хотя бы примерную цену']",
 					thumb-label,
 					thumb-size="38")
 			v-flex.xs3.pl-3.txt-for-price
-				v-text-field.slider-element-text(ref="sliderNum", v-model="slider", type="text", readonly)
+				v-text-field.slider-element-text(ref="sliderNum", v-model="sliderNum", type="text", readonly)
 </template>
 
 <script>
@@ -25,19 +25,27 @@ export default {
 	props: {
 		userdata: {
 			validator: value => typeof value === 'number',
-			default: () => 99000
+			default: () => 50000
 		}
 	},
 
 	data: () => ({
-		slider: 99000
+		slider: 50000,
+		sliderNum: '∞'
 	}),
 
 	watch: {
 		slider: function (value) {
 			if (isNaN(value)) {
-				this.slider = 99000
-				this.sliderNum = 99000
+				this.slider = 50000
+				this.sliderNum = '∞'
+			}
+			if (value === 50000) {
+				this.sliderNum = '∞'
+				this.$refs.sliderNum.$el.classList.add('active')
+			} else {
+				this.sliderNum = value
+				this.$refs.sliderNum.$el.classList.remove('active')
 			}
 		}
 	},
@@ -46,6 +54,10 @@ export default {
 		setTimeout(() => {
 			this.slider = this.userdata
 			this.sliderNum = this.userdata
+			if (this.sliderNum === 50000) {
+				this.sliderNum = '∞'
+				this.$refs.sliderNum.$el.classList.add('active')
+			}
 		}, 300)
 	}
 }
