@@ -4,7 +4,7 @@
 			img(style="background-color: #01cad1;", src="static/images/logoTG_VK_white_700.png", alt="Travel Radar", width="85", height="85")
 		v-flex.pt-4(xs11)
 			span.headline.pl-2 Лети отсюда!
-		v-flex(xs12)
+		v-flex.pt-3(xs12)
 			form-layout
 </template>
 
