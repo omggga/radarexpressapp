@@ -25,7 +25,7 @@
   "homepage": "https://github.com/omggga/radarexpressapp#readme",
   "dependencies": {
     "@babel/runtime": "^7.4.3",
-    "body-parser": "^1.20.1",
+    "body-parser": "^1.20.3",
     "connect-history-api-fallback": "^1.6.0",
     "cors": "^2.8.5",
     "express": "^4.21.0",
